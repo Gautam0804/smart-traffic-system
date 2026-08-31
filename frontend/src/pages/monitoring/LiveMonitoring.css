@@ -1,0 +1,1318 @@
+/* =========================================================
+   SMART TRAFFIC AI — ADVANCED MONITORING UI
+   ========================================================= */
+
+.monitoring-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px 30px 45px;
+  box-sizing: border-box;
+  color: #e5edf7;
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(14, 165, 233, 0.055),
+      transparent 32%
+    ),
+    #060c14;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #22c55e;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.live-indicator span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 12px rgba(34,197,94,.9);
+  animation: livePulse 1.6s infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .45;
+    transform: scale(.72);
+  }
+}
+
+.monitoring-title {
+  margin: 9px 0 0;
+  color: #f8fafc;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -.4px;
+}
+
+.toolbar-text {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+
+  border: 1px solid #26364a;
+  border-radius: 8px;
+
+  background: linear-gradient(
+    180deg,
+    #101c2b,
+    #0a1421
+  );
+
+  color: #b8c4d5;
+  cursor: pointer;
+
+  transition:
+    border-color .2s ease,
+    transform .2s ease,
+    background .2s ease;
+}
+
+.refresh-button:hover {
+  border-color: #38bdf8;
+  color: #f8fafc;
+  background: #0d1b2b;
+  transform: translateY(-1px);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   REAL-TIME SYSTEM BAR
+   ========================================================= */
+
+.monitoring-page::after {
+  content: "SYSTEM ONLINE  •  AI ENGINE ACTIVE  •  CAMERAS SYNCED";
+  display: block;
+
+  position: fixed;
+  right: 18px;
+  bottom: 14px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(34,197,94,.15);
+  border-radius: 6px;
+
+  background: rgba(5,12,20,.88);
+  backdrop-filter: blur(10px);
+
+  color: #3f6b54;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .8px;
+
+  pointer-events: none;
+  z-index: 50;
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.monitor-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.monitor-stat {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-height: 92px;
+  padding: 15px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #1c2a3d;
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17,31,47,.75),
+      rgba(7,16,27,.9)
+    );
+
+  overflow: hidden;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease;
+}
+
+.monitor-stat::after {
+  content: "";
+
+  position: absolute;
+  right: -25px;
+  top: -35px;
+
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%;
+
+  background: rgba(56,189,248,.035);
+}
+
+.monitor-stat:hover {
+  transform: translateY(-2px);
+  border-color: #29445f;
+}
+
+.monitor-stat-icon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(56,189,248,.08);
+  border-radius: 9px;
+
+  color: #38bdf8;
+  background: #102238;
+}
+
+.monitor-stat span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .9px;
+}
+
+.monitor-stat strong {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #f1f5f9;
+
+  font-size: 19px;
+}
+
+.monitor-stat small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #536277;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.monitoring-panel {
+  position: relative;
+
+  padding: 18px;
+
+  border: 1px solid #1b293b;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10,20,33,.98),
+      rgba(6,14,24,.98)
+    );
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.12);
+}
+
+.main-camera-panel {
+  margin-bottom: 18px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+.panel-header h2 {
+  margin: 0;
+
+  color: #f1f5f9;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.panel-header p {
+  margin: 5px 0 0;
+
+  color: #5e6d81;
+
+  font-size: 9px;
+}
+
+.panel-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #ef4444;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.panel-status.live {
+  color: #22c55e;
+}
+
+.panel-status span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  box-shadow: 0 0 8px currentColor;
+}
+
+
+/* =========================================================
+   CAMERA LAYOUT
+   ========================================================= */
+
+.main-camera-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 2fr)
+    minmax(250px, 1fr);
+
+  gap: 14px;
+}
+
+
+/* =========================================================
+   CAMERA CARD
+   ========================================================= */
+
+.camera-card {
+  overflow: hidden;
+
+  border: 1px solid #1e2e42;
+  border-radius: 10px;
+
+  background: #060d16;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.015);
+}
+
+.primary-camera {
+  min-width: 0;
+}
+
+.camera-view {
+  position: relative;
+
+  height: 430px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #0b1825,
+      #02070d 70%
+    );
+}
+
+.real-camera-stream {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  background: #02070d;
+}
+
+
+/* =========================================================
+   CAMERA GRID / SCAN EFFECT
+   ========================================================= */
+
+.camera-view::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      rgba(56,189,248,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(56,189,248,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+}
+
+.camera-view::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 0;
+
+  height: 1px;
+
+  z-index: 4;
+
+  background: rgba(56,189,248,.25);
+
+  box-shadow:
+    0 0 15px rgba(56,189,248,.3);
+
+  animation: scanLine 4s linear infinite;
+}
+
+@keyframes scanLine {
+  0% {
+    top: 5%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 95%;
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   CAMERA OVERLAY
+   ========================================================= */
+
+.camera-overlay {
+  position: absolute;
+
+  z-index: 6;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 13px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.78),
+      transparent
+    );
+}
+
+.camera-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: white;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.camera-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #22c55e;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.camera-live span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow: 0 0 10px #22c55e;
+
+  animation: livePulse 1.5s infinite;
+}
+
+
+/* =========================================================
+   CAMERA CONTROLS
+   ========================================================= */
+
+.camera-controls {
+  position: absolute;
+
+  z-index: 7;
+
+  right: 11px;
+  bottom: 45px;
+
+  display: flex;
+  gap: 6px;
+}
+
+.camera-controls button {
+  width: 31px;
+  height: 31px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 7px;
+
+  background: rgba(0,0,0,.58);
+
+  color: white;
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.camera-controls button:hover {
+  background: rgba(14,165,233,.18);
+  border-color: rgba(56,189,248,.4);
+}
+
+.camera-online-button {
+  color: #22c55e !important;
+}
+
+
+/* =========================================================
+   CAMERA BOTTOM OVERLAY
+   ========================================================= */
+
+.camera-bottom-overlay {
+  position: absolute;
+
+  z-index: 6;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.9),
+      transparent
+    );
+}
+
+.camera-bottom-overlay span {
+  display: block;
+
+  color: #7c8da3;
+
+  font-size: 7px;
+}
+
+.camera-bottom-overlay strong {
+  display: block;
+
+  margin-top: 3px;
+
+  color: white;
+
+  font-size: 9px;
+}
+
+.vehicle-live-count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #38bdf8;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   CAMERA TELEMETRY
+   ========================================================= */
+
+.camera-card::before {
+  content: "FPS 30   •   LATENCY 42ms   •   AI TRACKING ACTIVE";
+
+  display: block;
+
+  padding: 6px 10px;
+
+  border-bottom: 1px solid #142235;
+
+  background: #08111c;
+
+  color: #53677e;
+
+  font-size: 6px;
+  font-weight: 800;
+
+  letter-spacing: .7px;
+}
+
+
+/* =========================================================
+   CAMERA INFO
+   ========================================================= */
+
+.camera-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+}
+
+.camera-label {
+  color: #536277;
+
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.camera-info h3 {
+  margin: 4px 0 0;
+
+  color: #dbe5f1;
+
+  font-size: 11px;
+}
+
+.camera-vehicles {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #64748b;
+}
+
+.camera-vehicles strong {
+  color: #f8fafc;
+
+  font-size: 15px;
+}
+
+.camera-vehicles span {
+  font-size: 8px;
+}
+
+.camera-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 9px 12px;
+
+  border-top: 1px solid #162334;
+
+  color: #22c55e;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   MINI CAMERAS
+   ========================================================= */
+
+.camera-side-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mini-camera-card {
+  overflow: hidden;
+
+  border: 1px solid #19283a;
+  border-radius: 9px;
+
+  background: #070f19;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease;
+}
+
+.mini-camera-card:hover {
+  transform: translateY(-2px);
+  border-color: #2b4963;
+}
+
+.mini-camera-view {
+  position: relative;
+
+  height: 105px;
+
+  background: #02070d;
+}
+
+.mini-camera-view img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter: brightness(.65);
+}
+
+.mini-camera-offline {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  color: #45556b;
+}
+
+.mini-camera-offline span {
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.mini-camera-top {
+  position: absolute;
+
+  top: 8px;
+  left: 9px;
+  right: 9px;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: white;
+
+  font-size: 7px;
+  font-weight: 700;
+}
+
+.mini-camera-top b {
+  color: #ef4444;
+}
+
+.mini-camera-info {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 9px 10px;
+}
+
+.mini-camera-info strong {
+  color: #dbe5f1;
+  font-size: 9px;
+}
+
+.mini-camera-info span {
+  color: #64748b;
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   BOTTOM GRID
+   ========================================================= */
+
+.monitoring-bottom-grid {
+  display: grid;
+
+  grid-template-columns:
+    1.25fr
+    1fr;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   VEHICLE LIST
+   ========================================================= */
+
+.vehicle-detection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.vehicle-row-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 6px;
+}
+
+.lane-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #aebbc9;
+
+  font-size: 9px;
+}
+
+.lane-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #38bdf8;
+
+  box-shadow: 0 0 7px rgba(56,189,248,.7);
+}
+
+.vehicle-row-info strong {
+  color: #f1f5f9;
+
+  font-size: 11px;
+}
+
+.vehicle-progress {
+  width: 100%;
+  height: 5px;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: #162436;
+}
+
+.vehicle-progress span {
+  display: block;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0ea5e9,
+      #38bdf8
+    );
+
+  box-shadow:
+    0 0 10px rgba(56,189,248,.25);
+
+  transition: width .4s ease;
+}
+
+
+/* =========================================================
+   DETECTION
+   ========================================================= */
+
+.detection-status {
+  display: flex;
+  flex-direction: column;
+}
+
+.detection-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #162334;
+}
+
+.detection-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #9aa9bb;
+
+  font-size: 9px;
+}
+
+.status-circle {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+}
+
+.status-circle.online {
+  background: #22c55e;
+
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.status-circle.offline {
+  background: #ef4444;
+
+  box-shadow: 0 0 8px rgba(239,68,68,.5);
+}
+
+.status-online,
+.status-offline {
+  font-size: 8px;
+}
+
+.status-online {
+  color: #22c55e;
+}
+
+.status-offline {
+  color: #ef4444;
+}
+
+
+/* =========================================================
+   WARNING
+   ========================================================= */
+
+.detection-warning {
+  display: flex;
+  gap: 9px;
+
+  margin-top: 14px;
+  padding: 11px;
+
+  border: 1px solid rgba(239,68,68,.2);
+  border-radius: 7px;
+
+  color: #ef4444;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(239,68,68,.07),
+      rgba(239,68,68,.015)
+    );
+}
+
+.detection-warning strong {
+  display: block;
+
+  font-size: 9px;
+}
+
+.detection-warning p {
+  margin: 4px 0 0;
+
+  color: #65748a;
+
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   EXTRA REAL-TIME INFORMATION
+   ========================================================= */
+
+/* AI CONFIDENCE */
+
+.ai-confidence {
+  margin-top: 14px;
+
+  padding: 12px;
+
+  border: 1px solid #18283a;
+  border-radius: 8px;
+
+  background: #08121e;
+}
+
+.ai-confidence-header {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+
+  color: #718198;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.ai-confidence-header strong {
+  color: #38bdf8;
+}
+
+.ai-confidence-bar {
+  width: 100%;
+  height: 5px;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: #152335;
+}
+
+.ai-confidence-bar span {
+  display: block;
+
+  width: 94%;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0ea5e9,
+      #38bdf8
+    );
+}
+
+
+/* =========================================================
+   SIGNAL STATUS
+   ========================================================= */
+
+.signal-status-card {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+.signal-light {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  min-height: 70px;
+
+  border: 1px solid #18283a;
+  border-radius: 8px;
+
+  background: #08121e;
+}
+
+.signal-light span {
+  width: 11px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  opacity: .25;
+}
+
+.signal-light.red span {
+  background: #ef4444;
+}
+
+.signal-light.yellow span {
+  background: #eab308;
+}
+
+.signal-light.green span {
+  background: #22c55e;
+}
+
+.signal-light.active span {
+  opacity: 1;
+
+  box-shadow:
+    0 0 12px currentColor;
+}
+
+.signal-light small {
+  color: #65748a;
+
+  font-size: 7px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   INCIDENT BADGE
+   ========================================================= */
+
+.incident-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 12px;
+  padding: 6px 8px;
+
+  border: 1px solid rgba(245,158,11,.18);
+  border-radius: 6px;
+
+  background: rgba(245,158,11,.05);
+
+  color: #f59e0b;
+
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.incident-badge span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  box-shadow: 0 0 7px currentColor;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .monitor-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .main-camera-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-side-list {
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 850px) {
+
+  .monitoring-page {
+    padding: 22px 18px 35px;
+  }
+
+  .monitoring-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-view {
+    height: 360px;
+  }
+
+  .camera-side-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .signal-status-card {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .monitoring-page {
+    padding: 16px 12px 30px;
+  }
+
+  .page-toolbar {
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+  .monitoring-title {
+    font-size: 22px;
+  }
+
+  .monitor-stats {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+  }
+
+  .monitor-stat {
+    min-height: 80px;
+    padding: 11px;
+
+    gap: 8px;
+  }
+
+  .monitor-stat-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .monitor-stat strong {
+    font-size: 16px;
+  }
+
+  .camera-view {
+    height: 270px;
+  }
+
+  .camera-controls {
+    right: 8px;
+    bottom: 42px;
+  }
+
+  .camera-controls button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .camera-side-list {
+    grid-template-columns: 1fr;
+  }
+
+  .monitoring-panel {
+    padding: 13px;
+  }
+
+  .panel-header {
+    align-items: flex-start;
+  }
+
+  .panel-status {
+    font-size: 7px;
+  }
+
+  .monitoring-page::after {
+    display: none;
+  }
+}
+
+
+@media (max-width: 400px) {
+
+  .monitor-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-view {
+    height: 240px;
+  }
+
+  .signal-status-card {
+    grid-template-columns: 1fr;
+  }
+}
